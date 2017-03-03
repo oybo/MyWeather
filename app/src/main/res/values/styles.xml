@@ -1,0 +1,71 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <!-- 加入toolbar溢出【弹出】菜单的风格 -->
+        <item name="actionOverflowMenuStyle">@style/ToolbarTheme</item>
+        <!-- 修改分割线样式-->
+        <item name="android:listDivider">@drawable/division</item>
+    </style>
+
+    <!-- 其他页面菜单样式 -->
+    <style name="ToolbarTheme" parent="@style/BaseToolbarTheme">
+    </style>
+
+    <!-- ToolBar菜单样式 -->
+    <style name="BaseToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <!-- 是否覆盖锚点，默认为true，即盖住Toolbar -->
+        <item name="overlapAnchor">false</item>
+        <item name="android:dropDownWidth">wrap_content</item>
+        <item name="android:paddingRight">0dp</item>
+        <item name="android:paddingBottom">3dp</item>
+        <!-- 弹出层背景颜色 -->
+        <item name="android:popupBackground">@color/colorPrimary</item>
+        <!-- 弹出层垂直方向上的偏移，即在竖直方向上距离Toolbar的距离，值为负则会盖住Toolbar -->
+        <item name="android:dropDownVerticalOffset">0dp</item>
+        <!-- 弹出层水平方向上的偏移，即距离屏幕左边的距离，负值会导致右边出现空隙 -->
+        <item name="android:dropDownHorizontalOffset">0dp</item>
+        <!-- 设置弹出菜单文字颜色 -->
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="actionMenuTextColor">#FFFFFF</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:height">@dimen/main_actionbar_height</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="WelcomeTheme" parent="@android:style/Theme.Light.NoTitleBar.Fullscreen">
+        <!-- 将splash图片设置在这，这样这张图片取代白屏 -->
+        <item name="android:windowBackground">@drawable/welcome_bg</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <!--toolbar替代actionbar后必须设置主题为NoActionBar-->
+    <style name="MainTheme" >
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <!--toolbar替代actionbar后必须设置主题为NoActionBar-->
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <!--控制头部据appbar的样式-->
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <!--用于控制toolbar溢出菜单的样式-->
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
+    <!-- 分割线 -->
+    <style name="view_line">
+        <item name="android:background">#10000000</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.5dip</item>
+    </style>
+
+</resources>

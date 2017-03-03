@@ -1,0 +1,40 @@
+apply plugin: 'com.android.application'
+
+def buildSdkVersion = 23
+def buildToolVersion = "23.0.1"
+def supportVersion = "+"
+
+android {
+    compileSdkVersion buildSdkVersion
+    buildToolsVersion buildToolVersion
+    defaultConfig {
+        applicationId "app.android.oyb.com.myapp"
+        minSdkVersion 14
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.cfg'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support:support-v4:' + supportVersion
+    compile 'com.android.support:appcompat-v7:' + supportVersion
+    compile 'com.android.support:design:' + supportVersion
+    // OkGo封装库
+    compile 'com.lzy.net:okgo:+'
+    compile 'com.lzy.net:okserver:+'
+    // findviewbyid插件
+    compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'pub.devrel:easypermissions:0.1.9'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.google.code.gson:gson:2.8.0'
+    compile files('libs/showapi_sdk.jar')
+    compile files('libs/nineoldandroids-2.4.0.jar')
+}

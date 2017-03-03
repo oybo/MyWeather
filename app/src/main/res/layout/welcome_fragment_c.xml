@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/welcome_fragment"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#0f9d58"
+    android:clipChildren="false">
+
+    <ImageView
+        android:id="@+id/welcome_01"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/guide_c"/>
+
+    <TextView
+        android:id="@+id/heading"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/welcome_01"
+        android:layout_below="@+id/welcome_01"
+        android:layout_marginLeft="@dimen/welcome_text_margin"
+        android:layout_marginRight="@dimen/welcome_text_margin"
+        android:layout_marginTop="24dp"
+        android:text="hello world"/>
+
+    <TextView
+        android:id="@+id/content"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/welcome_01"
+        android:layout_below="@+id/heading"
+        android:layout_marginLeft="@dimen/welcome_text_margin"
+        android:layout_marginRight="@dimen/welcome_text_margin"
+        android:layout_marginTop="8dp"
+        android:minHeight="@dimen/welcome_content_min_height"
+        android:text="hello world"/>
+
+</RelativeLayout>
