@@ -10,9 +10,7 @@ import com.lzy.okgo.cookie.store.PersistentCookieStore;
 import com.lzy.okgo.model.HttpHeaders;
 import com.lzy.okgo.model.HttpParams;
 
-import app.android.oyb.com.myapp.bean.User;
-import app.android.oyb.com.myapp.callback.JsonBeanCallback;
-import app.android.oyb.com.myapp.data.RspBase;
+import app.android.oyb.com.myapp.callback.JsonStringCallback;
 
 /**
  * Created by O on 2017/2/23.
@@ -21,19 +19,24 @@ import app.android.oyb.com.myapp.data.RspBase;
 public class OkHttpManager {
 
     public static void request(Context context) {
-        OkGo.get("http://bdev.kukelu.com:7979/api/user/login.html")     // 请求方式和请求url
+        OkGo.get("http://route.showapi.com/9-5")     // 请求方式和请求url
                 .tag(context)                       // 请求的 tag, 主要用于取消对应的请求
                 .cacheKey("cacheKey")            // 设置当前请求的缓存key,建议每个不同功能的请求设置一个
                 .cacheMode(CacheMode.DEFAULT)    // 缓存模式，详细请看缓存介绍
-                .params("username", "oyb1234")
-                .params("password", "qqqqqq")
-                .execute(new JsonBeanCallback<RspBase<User>>() {
+                .params("showapi_appid", "32985")
+                .params("showapi_sign", "b226815739ae4cfd8a75a8828148ff2e")
+                .params("from", "5")
+                .params("lng", "116.2278")
+                .params("lat", "40.242266")
+                .execute(new JsonStringCallback() {
                     @Override
-                    public void success(RspBase<User> userRspBase) {
+                    public void success(String result) {
+                        String ss = "";
                     }
 
                     @Override
                     public void error(String message) {
+                        String ss = "";
                     }
                 });
     }
