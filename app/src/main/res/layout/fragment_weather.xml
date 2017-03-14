@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,24 +10,26 @@
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/transparent"
-        android:fitsSystemWindows="true"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:layout_marginBottom="70dip"
+        android:background="@android:color/transparent">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            app:expandedTitleMarginStart="38dp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+            app:statusBarScrim="@android:color/transparent"
+            app:titleEnabled="false">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="300dip"
+                android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/status_bar_height"
                 android:orientation="vertical"
                 android:padding="10dip"
-                app:layout_scrollFlags="scroll|enterAlways"
                 app:layout_collapseMode="parallax"
+                app:layout_scrollFlags="scroll|enterAlways"
                 app:popupTheme="@style/AppTheme.PopupOverlay">
 
                 <TextView
@@ -36,7 +39,7 @@
                     android:drawablePadding="5dip"
                     android:text="深圳市南山区科技园"
                     android:textColor="#FFFFFF"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"/>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -47,12 +50,12 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/nw0" />
+                        android:src="@drawable/nw0"/>
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/nw1" />
+                        android:src="@drawable/nw1"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -61,13 +64,12 @@
                         android:drawablePadding="3dip"
                         android:text="雨"
                         android:textColor="#FFFFFF"
-                        android:textSize="16sp" />
-
+                        android:textSize="16sp"/>
                 </LinearLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent">
 
                     <TextView
                         android:id="@+id/weather_wind_direction_txt"
@@ -78,7 +80,7 @@
                         android:layout_marginTop="15dip"
                         android:text="风向：17级"
                         android:textColor="#FFFFFF"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"/>
 
                     <TextView
                         android:id="@+id/weather_quality_txt"
@@ -88,7 +90,7 @@
                         android:layout_margin="5dip"
                         android:text="空气质量：17级"
                         android:textColor="#FFFFFF"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"/>
 
                     <TextView
                         android:id="@+id/weather_pm_txt"
@@ -98,64 +100,73 @@
                         android:layout_margin="5dip"
                         android:text="PM2.5：17级"
                         android:textColor="#FFFFFF"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"/>
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_margin="20dip"
-                        android:src="@drawable/tianqibiao" />
+                        android:src="@drawable/tianqibiao"/>
 
                 </RelativeLayout>
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dip"
-                android:layout_gravity="bottom"
-                android:background="#20000000"
-                android:orientation="horizontal"
-                app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed">
-
-                <TextView
-                    android:layout_width="0dip"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="今天" />
-
-                <TextView
-                    android:layout_width="0dip"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="明天" />
-
-            </LinearLayout>
-
         </android.support.design.widget.CollapsingToolbarLayout>
+
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/weather_recyclerview"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dip"
+            android:layout_gravity="bottom"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#20000000"
+                android:gravity="center"
+                android:text="今天"/>
+
+            <TextView
+                android:layout_width="0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#20000000"
+                android:gravity="center"
+                android:text="明天"/>
+
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/weather_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="70dip"
-        android:layout_marginTop="-70dp"
+        android:layout_marginTop="-100dp"
         android:alpha="0"
         android:background="@color/colorPrimary"
         android:elevation="10dp"
-        android:padding="10dip"
+        android:gravity="center_vertical"
+        android:paddingBottom="10dip"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
         android:paddingTop="@dimen/status_bar_height"
         app:layout_behavior="@string/simple_view_behavior"
-        app:layout_collapseMode="parallax"
-        app:layout_collapseParallaxMultiplier="0.6"
         app:svb_dependOn="@id/appbar"
         app:svb_dependType="y"
         app:svb_targetAlpha="1"
@@ -169,7 +180,7 @@
             android:drawablePadding="5dip"
             android:text="深圳市南山区科技园"
             android:textColor="#FFFFFF"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
 
     </RelativeLayout>
 

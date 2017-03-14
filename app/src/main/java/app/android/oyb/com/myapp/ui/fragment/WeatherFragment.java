@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +24,9 @@ import butterknife.ButterKnife;
 
 public class WeatherFragment extends BaseFragment {
 
-    @Bind(R.id.weather_wind_direction_txt) TextView weatherWindDirectionTxt;
-    @Bind(R.id.weather_quality_txt) TextView weatherQualityTxt;
-    @Bind(R.id.weather_pm_txt) TextView weatherPmTxt;
+//    @Bind(R.id.weather_wind_direction_txt) TextView weatherWindDirectionTxt;
+//    @Bind(R.id.weather_quality_txt) TextView weatherQualityTxt;
+//    @Bind(R.id.weather_pm_txt) TextView weatherPmTxt;
     @Bind(R.id.weather_recyclerview) RecyclerView weatherRecyclerview;
 
     private WeatherNewsAdapter mAdapter;
@@ -48,7 +47,7 @@ public class WeatherFragment extends BaseFragment {
     }
 
     private void initView() {
-        weatherRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity()));
+        weatherRecyclerview.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
     }
 
     private void initNews() {

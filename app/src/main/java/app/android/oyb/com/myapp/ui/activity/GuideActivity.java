@@ -13,9 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-
 import com.nineoldandroids.view.ViewHelper;
-
 import app.android.oyb.com.myapp.R;
 import app.android.oyb.com.myapp.manager.Commons;
 import app.android.oyb.com.myapp.manager.PreferenceUtils;

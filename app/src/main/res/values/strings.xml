@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MyApp</string>
+    <string name="app_name">甜甜天气</string>
 
     <string name="simple_view_behavior">app.android.oyb.com.myapp.ui.view.SimpleViewBehavior</string>
     <string name="translate_up_down_behavior">app.android.oyb.com.myapp.ui.view.TranslateUpDownBehavior</string>

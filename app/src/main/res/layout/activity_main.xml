@@ -21,18 +21,18 @@
         <LinearLayout
             android:id="@+id/botton_layout"
             android:layout_width="match_parent"
-            android:layout_height="51dip"
+            android:layout_height="53dip"
             android:layout_alignParentBottom="true"
-            android:background="#00000000"
+            android:background="#FFFFFF"
             android:orientation="vertical">
 
             <View style="@style/view_line"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
+                android:layout_height="match_parent"
                 android:background="#f1ffffff"
-                android:gravity="center_vertical"
+                android:gravity="bottom|center_horizontal"
                 android:orientation="horizontal"
                 android:paddingTop="2dip">
 
@@ -44,11 +44,11 @@
                     android:layout_weight="1"
                     android:background="@null"
                     android:clickable="true"
-                    android:drawableTop="@mipmap/ic_launcher"
+                    android:drawableTop="@drawable/selector_weather"
                     android:gravity="center"
                     android:onClick="onTabClicked"
                     android:paddingBottom="3dip"
-                    android:text="天气气象"
+                    android:text="天气"
                     android:textColor="@drawable/actionbar_txt_selector"
                     android:textSize="12sp"/>
 
@@ -59,7 +59,7 @@
                     android:layout_centerHorizontal="true"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:drawableTop="@mipmap/ic_launcher"
+                    android:drawableTop="@drawable/selector_pictures"
                     android:gravity="center"
                     android:onClick="onTabClicked"
                     android:paddingBottom="3dip"
@@ -74,11 +74,11 @@
                     android:layout_centerHorizontal="true"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:drawableTop="@mipmap/ic_launcher"
+                    android:drawableTop="@drawable/selector_notepad"
                     android:gravity="center"
                     android:onClick="onTabClicked"
                     android:paddingBottom="3dip"
-                    android:text="买卖"
+                    android:text="记事本"
                     android:textColor="@drawable/actionbar_txt_selector"
                     android:textSize="12sp"/>
             </LinearLayout>

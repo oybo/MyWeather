@@ -25,8 +25,7 @@ public class WeatherNewsAdapter extends BaseRecyclerAdapter<WeatherNews> {
     @Override
     public void bindData(RecyclerViewHolder holder, int position, WeatherNews item) {
 
-        String ss = "";
-//        holder.setText()
+        holder.setText(R.id.item_weather_news_name_txt, "哈哈哈" + position);
 
     }
 

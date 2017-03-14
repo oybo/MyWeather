@@ -9,7 +9,7 @@
         <!-- 加入toolbar溢出【弹出】菜单的风格 -->
         <item name="actionOverflowMenuStyle">@style/ToolbarTheme</item>
         <!-- 修改分割线样式-->
-        <item name="android:listDivider">@drawable/division</item>
+        <item name="android:listDivider">@drawable/view_division</item>
     </style>
 
     <!-- 其他页面菜单样式 -->

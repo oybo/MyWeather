@@ -1,5 +1,6 @@
 package app.android.oyb.com.myapp.ui.activity;
 
+import android.Manifest;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -11,18 +12,25 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-
+import android.widget.Toast;
+import java.util.List;
 import app.android.oyb.com.myapp.R;
 import app.android.oyb.com.myapp.ui.BaseActivity;
+import app.android.oyb.com.myapp.ui.fragment.NotepadFragment;
+import app.android.oyb.com.myapp.ui.fragment.PrettyPicturesFragment;
 import app.android.oyb.com.myapp.ui.fragment.WeatherFragment;
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import pub.devrel.easypermissions.EasyPermissions;
 
 /**
  * Created by O on 2017/3/2.
  */
 
-public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener,
+        EasyPermissions.PermissionCallbacks {
+
+    private static final int LOCATION_PERMISSION_CODE = 101;
 
     @Bind(R.id.main_book_shelf_bt) Button mainBookShelfBt;
     @Bind(R.id.main_book_city_bt) Button mainBookCityBt;
@@ -35,8 +43,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private Fragment[] fragments;
 
     private WeatherFragment mWeatherFragment;
-    private WeatherFragment mWeatherFragmentTwo;
-    private WeatherFragment mWeatherFragmentThree;
+    private PrettyPicturesFragment mPrettyPicturesFragment;
+    private NotepadFragment mNotepadFragment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,6 +54,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         ButterKnife.bind(this);
 
         initView();
+        initPermission();
         initFragment(savedInstanceState);
     }
 
@@ -56,28 +65,45 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         mTabs[2] = (Button) findViewById(R.id.main_book_list_bt);
     }
 
+    private void initPermission() {
+        // 申请定位相关权限
+        String[] perms = {Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.READ_PHONE_STATE};
+
+        if (EasyPermissions.hasPermissions(this, perms)) {
+            // Already have permission, do the thing
+            // ...
+        } else {
+            // Do not have permissions, request them now
+            EasyPermissions.requestPermissions(this, "需要定位您的位置来获取天气信息，请允许", LOCATION_PERMISSION_CODE, perms);
+        }
+    }
+
     private void initFragment(Bundle savedInstanceState) {
-        if(savedInstanceState != null) {
+        if (savedInstanceState != null) {
             FragmentManager fm = getSupportFragmentManager();
-            mWeatherFragment = (WeatherFragment) fm.findFragmentByTag("BookShelfFragment");
-            mWeatherFragmentTwo = (WeatherFragment) fm.findFragmentByTag("BookCityFragment");
-            mWeatherFragmentThree = (WeatherFragment) fm.findFragmentByTag("BookListFragment");
+            mWeatherFragment = (WeatherFragment) fm.findFragmentByTag("WeatherFragment");
+            mPrettyPicturesFragment = (PrettyPicturesFragment) fm.findFragmentByTag("PrettyPicturesFragment");
+            mNotepadFragment = (NotepadFragment) fm.findFragmentByTag("NotepadFragment");
 
             index = savedInstanceState.getInt(TAG_INDEX);
         }
-        if(mWeatherFragment == null) {
+        if (mWeatherFragment == null) {
             mWeatherFragment = new WeatherFragment();
         }
-        if(mWeatherFragmentTwo == null) {
-            mWeatherFragmentTwo = new WeatherFragment();
+        if (mPrettyPicturesFragment == null) {
+            mPrettyPicturesFragment = new PrettyPicturesFragment();
         }
-        if(mWeatherFragmentThree == null) {
-            mWeatherFragmentThree = new WeatherFragment();
+        if (mNotepadFragment == null) {
+            mNotepadFragment = new NotepadFragment();
         }
 
-        fragments = new Fragment[]{mWeatherFragment, mWeatherFragmentTwo, mWeatherFragmentThree};
+        fragments = new Fragment[]{mWeatherFragment, mPrettyPicturesFragment, mNotepadFragment};
 
-        if(index == -1) {
+        if (index == -1) {
             index = 0;
         }
         currentTab();
@@ -132,6 +158,21 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     protected boolean translucentStatusBar() {
         return true;
+    }
+
+
+    //成功
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> list) {
+        // Some permissions have been granted
+        // ...
+    }
+
+    //失败
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> list) {
+        // Some permissions have been denied
+        Toast.makeText(this, "您拒绝了相关权限，可能会导致相关功能不可用", Toast.LENGTH_LONG).show();
     }
 
 }
