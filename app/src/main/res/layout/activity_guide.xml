@@ -1,34 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/guide_viewpager"
+    <app.android.oyb.com.myapp.widget.guide.DropViewPager
+        android:id="@+id/mViewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+    </app.android.oyb.com.myapp.widget.guide.DropViewPager>
 
-    <LinearLayout
-        android:id="@+id/guide_circles"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <app.android.oyb.com.myapp.widget.guide.DropIndicator
+        android:id="@+id/circleIndicator"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dip"
-        android:orientation="horizontal">
-    </LinearLayout>
+        android:layout_marginBottom="10dip"
+        app:circle_color="@android:color/darker_gray"
+        app:click_color="#fafafa"
+        app:color1="#FCC04D"
+        app:color2="#00C3E2"
+        app:color3="#FE626D"
+        app:color4="#966ACF"
+        app:duration="800"
+        app:radius="14dp"
+        app:scale="0.5">
 
-    <Button
-        android:id="@+id/guide_start_bt"
-        android:layout_width="wrap_content"
-        android:layout_height="35dip"
-        android:layout_above="@id/guide_circles"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dip"
-        android:background="@drawable/bt_guide_start_selector"
-        android:text="开始生活"
-        android:textColor="#666666"
-        android:textSize="14sp"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/guide_spring"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/guide_summer"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/guide_autumn"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/guide_winter"/>
+
+    </app.android.oyb.com.myapp.widget.guide.DropIndicator>
 
 </RelativeLayout>

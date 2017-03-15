@@ -3,188 +3,133 @@ package app.android.oyb.com.myapp.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import com.nineoldandroids.view.ViewHelper;
 import app.android.oyb.com.myapp.R;
 import app.android.oyb.com.myapp.manager.Commons;
 import app.android.oyb.com.myapp.manager.PreferenceUtils;
 import app.android.oyb.com.myapp.ui.BaseActivity;
-import app.android.oyb.com.myapp.ui.fragment.ProductTourFragment;
+import app.android.oyb.com.myapp.widget.guide.DropIndicator;
+import app.android.oyb.com.myapp.widget.guide.DropViewPager;
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * 向导页
  * Created by O on 2017/3/3.
  */
 
-public class GuideActivity extends BaseActivity implements View.OnClickListener {
+public class GuideActivity extends BaseActivity {
 
-    private static final int NUM_PAGES = 4;
-    private ViewPager mViewPager;
-    private PagerAdapter pagerAdapter;
-    private LinearLayout circles;
+    @Bind(R.id.mViewPager)
+    DropViewPager mViewPager;
+    @Bind(R.id.circleIndicator)
+    DropIndicator circleIndicator;
 
-    private Button mStartBT;
+    private static int[] images = new int[]{R.drawable.guide_a, R.drawable.guide_b, R.drawable.guide_c, R.drawable.guide_d};
+    private GestureDetector mDetector;
+    private PagerAdapter mAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStatuBar();
         setContentView(R.layout.activity_guide);
+        ButterKnife.bind(this);
 
         initView();
         PreferenceUtils.getInstance().putBoolen(Commons.IS_GUIDE_KEY, false);
     }
 
     private void initView() {
-        mViewPager = (ViewPager) findViewById(R.id.guide_viewpager);
-        mStartBT = (Button) findViewById(R.id.guide_start_bt);
-        mStartBT.setOnClickListener(this);
-
-        pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
-        mViewPager.setAdapter(pagerAdapter);
-        mViewPager.setPageTransformer(true, new CrossfadePageTransformer());
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        mAdapter = new PagerAdapter() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+            public int getCount() {
+                return images.length;
             }
 
             @Override
-            public void onPageSelected(int position) {
-                setIndicator(position);
+            public boolean isViewFromObject(View view, Object object) {
+                return view == object;
             }
 
             @Override
-            public void onPageScrollStateChanged(int state) {
+            public void destroyItem(ViewGroup container, int position, Object object) {
+                container.removeView((View) object);
+            }
 
+            @Override
+            public Object instantiateItem(ViewGroup container, int position) {
+                ImageView imageView = new ImageView(getBaseContext());
+                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                imageView.setImageResource(images[position]);
+                container.addView(imageView);
+                return imageView;
+            }
+
+        };
+
+        mViewPager.setOffscreenPageLimit(images.length);
+        mViewPager.setAdapter(mAdapter);
+        circleIndicator.setViewPager(mViewPager);
+
+        mDetector = new GestureDetector(this, new MyGestureListener());
+
+        mViewPager.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return mDetector.onTouchEvent(event);
             }
         });
-
-        buildCircles();
     }
 
-    private void setIndicator(int index) {
-        if (index < NUM_PAGES) {
-            for (int i = 0; i < NUM_PAGES; i++) {
-                ImageView circle = (ImageView) circles.getChildAt(i);
-                if (i == index) {
-                    circle.setColorFilter(getResources().getColor(R.color.text_selected));
-                } else {
-                    circle.setColorFilter(getResources().getColor(android.R.color.transparent));
-                }
+    private class MyGestureListener extends GestureDetector.SimpleOnGestureListener {
 
-                mStartBT.setVisibility(View.GONE);
-                if(index == NUM_PAGES - 1) {
-                    mStartBT.setVisibility(View.VISIBLE);
-                }
-            }
-        }
-    }
+        private int mTouchSlop;
 
-    @Override
-    public void onClick(View v) {
-        if(v.getId() == R.id.guide_start_bt) {
-            startActivity(new Intent(GuideActivity.this, MainActivity.class));
-            finish();
-        }
-    }
-
-    private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
-
-        public ScreenSlidePagerAdapter(FragmentManager fm) {
-            super(fm);
+        public MyGestureListener() {
+            mTouchSlop = ViewConfiguration.get(GuideActivity.this).getScaledTouchSlop();
         }
 
         @Override
-        public Fragment getItem(int position) {
-            ProductTourFragment tp = null;
-            switch (position) {
-                case 0:
-                    tp = ProductTourFragment.newInstance(R.layout.welcome_fragment_a);
-                    break;
-                case 1:
-                    tp = ProductTourFragment.newInstance(R.layout.welcome_fragment_b);
-                    break;
-                case 2:
-                    tp = ProductTourFragment.newInstance(R.layout.welcome_fragment_c);
-                    break;
-                case 3:
-                    tp = ProductTourFragment.newInstance(R.layout.welcome_fragment_d);
-                    break;
-            }
-
-            return tp;
+        public boolean onSingleTapUp(MotionEvent e) {
+            return false;
         }
 
         @Override
-        public int getCount() {
-            return NUM_PAGES;
+        public void onLongPress(MotionEvent e) {
         }
-    }
-
-    public class CrossfadePageTransformer implements ViewPager.PageTransformer {
 
         @Override
-        public void transformPage(View page, float position) {
-            int pageWidth = page.getWidth();
-
-            View backgroundView = page.findViewById(R.id.welcome_fragment);
-            View text_head = page.findViewById(R.id.heading);
-            View text_content = page.findViewById(R.id.content);
-
-            if (0 < position && position < 1) {
-                ViewHelper.setTranslationX(page, pageWidth * -position);
-            }
-            if (-1 < position && position < 0) {
-                ViewHelper.setTranslationX(page, pageWidth * -position);
-            }
-
-            if (position <= -1.0f || position >= 1.0f) {
-            } else if (position == 0.0f) {
-            } else {
-                if (backgroundView != null) {
-                    ViewHelper.setAlpha(backgroundView, 1.0f - Math.abs(position));
-
-                }
-
-                if (text_head != null) {
-                    ViewHelper.setTranslationX(text_head, pageWidth * position);
-                    ViewHelper.setAlpha(text_head, 1.0f - Math.abs(position));
-                }
-
-                if (text_content != null) {
-                    ViewHelper.setTranslationX(text_content, pageWidth * position);
-                    ViewHelper.setAlpha(text_content, 1.0f - Math.abs(position));
-                }
-            }
-        }
-    }
-
-    private void buildCircles() {
-        circles = LinearLayout.class.cast(findViewById(R.id.guide_circles));
-
-        float scale = getResources().getDisplayMetrics().density;
-        int padding = (int) (5 * scale + 0.5f);
-
-        for (int i = 0; i < NUM_PAGES; i++) {
-            ImageView circle = new ImageView(this);
-            circle.setImageResource(R.drawable.ic_swipe_indicator_white_18dp);
-            circle.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            circle.setAdjustViewBounds(true);
-            circle.setPadding(padding, 0, padding, 0);
-            circles.addView(circle);
+        public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+            return false;
         }
 
-        setIndicator(0);
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            //  用户按下触摸屏、快速移动后松开
+            try {
+                if(mViewPager.getCurrentItem() == images.length - 1) {
+                    if(e1.getX() - e2.getX() > mTouchSlop && Math.abs(velocityX) > 0) {
+                        startActivity(new Intent(GuideActivity.this, MainActivity.class));
+                        finish();
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return false;
+        }
+
+        @Override
+        public boolean onDown(MotionEvent e) {
+            return true;
+        }
     }
 
 }
