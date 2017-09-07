@@ -10,10 +10,11 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
 import app.android.oyb.com.myapp.R;
-import app.android.oyb.com.myapp.manager.Commons;
 import app.android.oyb.com.myapp.manager.PreferenceUtils;
 import app.android.oyb.com.myapp.ui.BaseActivity;
+import app.android.oyb.com.myapp.utils.Constants;
 import app.android.oyb.com.myapp.widget.guide.DropIndicator;
 import app.android.oyb.com.myapp.widget.guide.DropViewPager;
 import butterknife.Bind;
@@ -43,7 +44,7 @@ public class GuideActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         initView();
-        PreferenceUtils.getInstance().putBoolen(Commons.IS_GUIDE_KEY, false);
+        PreferenceUtils.getInstance().putBoolen(Constants.IS_GUIDE_KEY, false);
     }
 
     private void initView() {

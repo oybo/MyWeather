@@ -6,4 +6,6 @@ package app.android.oyb.com.myapp.utils;
 
 public class Constants {
 
+    public static final String IS_GUIDE_KEY = "is_guide_key";
+
 }

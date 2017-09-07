@@ -8,7 +8,8 @@ import android.support.v4.view.ViewPropertyAnimatorListener;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
-import app.android.oyb.com.myapp.utils.AnimHelper;
+
+import app.android.oyb.com.myapp.widget.AnimHelper;
 
 /**
  * ================================================

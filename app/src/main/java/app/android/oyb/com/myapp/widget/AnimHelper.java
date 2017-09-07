@@ -1,4 +1,4 @@
-package app.android.oyb.com.myapp.utils;
+package app.android.oyb.com.myapp.widget;
 
 import android.content.Context;
 import android.support.v4.view.ViewCompat;

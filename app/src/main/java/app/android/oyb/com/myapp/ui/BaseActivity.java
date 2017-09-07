@@ -115,11 +115,11 @@ public class BaseActivity extends AppCompatActivity {
 
     private ProgressDialog dialog;
 
-    public void showLoading() {
-        showLoading("请求网络中...");
+    protected void loading() {
+        loading("请求网络中...");
     }
 
-    public void showLoading(String message) {
+    protected void loading(String message) {
         if (dialog != null && dialog.isShowing()) return;
         dialog = new ProgressDialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
